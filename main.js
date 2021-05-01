@@ -22,7 +22,7 @@ let imagePath = (frameNumber, animation) => {
 let frames = {
   idle: [1,2,3,4,5,6,7,8],
   kick: [1,2,3,4,5,6,7],
-  punch: [1,2,3,4,5,6,7,8],
+  punch: [1,2,3,4,5,6,7],
 };
 
 let loadImages = (callback) => {
@@ -54,14 +54,14 @@ let animate = (ctx, images, animation,  callback) => {
   images[animation].forEach((image, index) => {
     setTimeout(() => {
       ctx.clearRect(0, 0, 500, 500);
-      ctx.drawImage(image, 0, 0, 500, 500),
-    }, index * 100);
+      ctx.drawImage(image, 0, 0, 500, 500);
+    }, index * 100); 
   });
 
   setTimeout(callback, images[animation].length * 800);
 };
 
-loadImage((images) => {
+loadImages((images) => {
   let queuedAnimation = [];
 
   let aux = () => {
@@ -91,13 +91,13 @@ loadImage((images) => {
       queuedAnimation.push("punch");
     }
   })
-  // animate(ctx, images, "idle", () => {
-  //   console.log("Done");
-  // });
-
-  // ctx.drawImage(images[3], 0, 0, 200, 200);
 });
 
+// animate(ctx, images, "idle", () => {
+//   console.log("Done");
+// });
+
+// ctx.drawImage(images[3], 0, 0, 200, 200);
 
 /*
 L1:
