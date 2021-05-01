@@ -4,12 +4,33 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>SIMULATOR</title>
+
+  <style>
+    body{
+      color: white;
+      background-image: url('images/background.jpg');
+      background-size: 1355px 686px;
+    }
+    .btn{
+      margin: 0px 9px;
+      background-color:black ;
+      color:white;
+      padding: 4px 14px;
+      border: 2px solid black;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Baloo Bhai 2',
+    }
+
+  </style>
 </head>
 <body>
-  <canvas id="my-canvas" width="1000" height="400" style="border: 2px solid red;"></canvas>
-  <button id="kick">Kick</button>
-  <button id="punch">Punch</button>
+  <canvas id="my-canvas" width="500" height="600" style="border: 2px solid black;"></canvas>
+  <div align=center>
+    <button id="kick" class="btn">Kick(Left Arrow Key)</button>
+    <button id="punch" class="btn">Punch(Right Arrow Key)</button>
+  </div>
   <script type="text/javascript" src="main.js"></script>
 </body>
 </html>
