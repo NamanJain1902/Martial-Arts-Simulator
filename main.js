@@ -16,7 +16,7 @@ let loadImage = (src, callback) => {
 };
 
 let imagePath = (frameNumber, animation) => {
-  return "images/" + animation + "/" +  frameNumber + ".png";
+  return "https://github.com/nj1902/nj1902.github.io/tree/main/images" + animation + "/" +  frameNumber + ".png?raw=true";
 };
 
 let frames = {
