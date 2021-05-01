@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="my-canvas" width="1000" height="400" style="border: 2px solid red;"></canvas>
+  <button id="kick">Kick</button>
+  <button id="punch">Pinch</button>
+  <!-- <script type="text/javascript" src="main.js"></script> -->
+  <script>
+    let c = document.getElementById("my-canvas");
+    let ctx = c.getContext("2d");
+
+    var background = new Image();
+    background.src = "images/background.jpg";
+
+    let loadImage = (src, callback) => {  
+      var img = document.createElement("img");
+      img.onload = () => callback(img);
+      img.src = src;  
+    };
+
+    let imagePath = (frameNumber, animation) => {
+      return "images/" + animation + "/" +  frameNumber + ".png";
+    };
+
+    let frames = {
+      idle: [1,2,3,4,5,6,7,8],
+      kick: [1,2,3,4,5,6,7],
+      punch: [1,2,3,4,5,6,7,8],
+    };
+
+    let loadImages = (callback) => {
+      let images = {idle: [], kick: [], punch: []};
+      let imagesToLoad = 8;
+
+      ['idle', 'kick', 'punch'].forEach((animation) => {
+        let animationFrames = frames[animation];
+        imagesToLoad = imagesToLoad + animationFrames.length;
+
+        animationFrames.forEach((frameNumber) => {
+          let path = imagePath(frameNumber, animation);
+        
+          loadImage(path, (image) => {
+            images[animation][frameNumber - 1] = image;
+            imagesToLoad = imagesToLoad - 1;
+
+            if (imagesToLoad === 0){
+              callback(images);
+            }
+          });
+        });
+      });
+    };
+
+    let animate = (ctx, images, animation,  callback) => {
+      images[animation].forEach((image, index) => {
+        setTimeout(() => {
+          ctx.clearRect(0, 0, 500, 500);
+          ctx.drawImage(image, 0, 0, 500, 500),
+        }, index * 100);
+      });
+
+      setTimeout(callback, images[animation].length * 800);
+    };
+
+    loadImage((images) => {
+      let queuedAnimation = [];
+
+      let aux = () => {
+        let selectedAnimation;
+        if(queuedAnimation.length === 0){
+          selectedAnimation = "idle";
+        }else{
+          selectedAnimation = queuedAnimation.shift();
+        }
+        animate(ctx, images, queuedAnimation, aux);
+      }
+      aux();
+      document.getElementById('kick').onclick = () =>  {
+        queuedAnimation.push('kick');
+      };
+
+      document.getElementById('punch').onclick = () => {
+        queuedAnimation.push('punch');
+      };
+
+      document.addEventListener("keyup", (event) => {
+        const key = event.key;
+
+        if(key === "ArrowLeft"){
+          queuedAnimation.push("kick");
+        }else if(key === "ArrowRight"){
+          queuedAnimation.push("punch");
+        }
+      })
+    });
+  </script>
+</body>
+</html>
