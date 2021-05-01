@@ -1,6 +1,13 @@
 let c = document.getElementById("my-canvas");
 let ctx = c.getContext("2d");
 
+var background = new Image();
+background.src = "images/background.jpg";
+
+// background.onload = function(){
+//   ctx.drawImage(background,0,0);   
+// }
+
 
 let loadImage = (src, callback) => {  
   var img = document.createElement("img");
@@ -9,7 +16,7 @@ let loadImage = (src, callback) => {
 };
 
 let imagePath = (frameNumber, animation) => {
-  return "https://github.com/nj1902/nj1902.github.io/tree/main/images" + animation + "/" +  frameNumber + ".png";
+  return "images/" + animation + "/" +  frameNumber + ".png";
 };
 
 let frames = {
